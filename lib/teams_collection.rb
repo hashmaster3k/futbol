@@ -19,5 +19,4 @@ class TeamsCollection
   def add_team(data)
     @all_teams << Team.new(data)
   end
-
 end
