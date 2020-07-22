@@ -8,6 +8,7 @@ class TeamsCollection
   def initialize(path)
     @path      = path
     @all_teams = []
+    from_csv(path)
   end
 
   def from_csv(path)
