@@ -47,12 +47,12 @@ class GameTeam
     # Returns a hash
     # keys are game ids
     # values are sum of goals in that game
-    @@game_teams.reduce({}) do |game_sums, game|
-      if !game_sums[game.game_id]
-        game_sums[game.game_id] = 0
+    @@game_teams.reduce({}) do |game_goals, game|
+      if !game_goals[game.game_id]
+        game_goals[game.game_id] = 0
       end
-      game_sums[game.game_id] += game.goals
-      game_sums
+      game_goals[game.game_id] += game.goals
+      game_goals
     end
   end
 end
