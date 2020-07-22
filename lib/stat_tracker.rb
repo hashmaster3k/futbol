@@ -1,8 +1,10 @@
 require_relative './game_teams_collection'
 require_relative './games_collection'
 require_relative './teams_collection'
+require_relative './game_statistics'
 
 class StatTracker
+  include GameStatistics
   attr_reader :game_teams, :games, :teams
   def initialize(game_teams, games, teams)
     @game_teams = game_teams
