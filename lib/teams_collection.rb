@@ -12,6 +12,7 @@ class TeamsCollection
   end
 
   def from_csv(path)
+    return if !File.exist?(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |team_data|
       add_team(team_data)
     end
