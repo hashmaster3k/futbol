@@ -66,4 +66,22 @@ module SeasonStatistics
     teams.find {|team| team.team_id.to_i == acc_team_id}.teamname
   end
 
+  def calclulate_tackles_per_team(season_id)
+    tackles_per_team = Hash.new(0)
+    group_by_teams(season_id).each do |t_id, games|
+      total_tackles = 0
+      games.each do |game|
+        total_tackles += game.tackles
+      end
+      tackles_per_team[t_id] = total_tackles
+    end
+    tackles_per_team
+  end
+
+	# Name of the team with the most tackles in the season
+  def most_tackles(season_id)
+    tac_team_id = calclulate_tackles_per_team(season_id).max_by {|t_id, tackles| tackles}[0]
+    teams.find {|team| team.team_id.to_i == tac_team_id}.teamname
+  end
+
 end

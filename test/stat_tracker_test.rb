@@ -41,4 +41,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Columbus Crew SC", @stat_tracker.least_accurate_team("20142015")
   end
 
+  def test_most_tackles
+    assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
+    assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
+  end
+
 end
