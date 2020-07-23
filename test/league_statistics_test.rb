@@ -50,4 +50,18 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal "Houston Dynamo", @stat_tracker.worst_offense
   end
 
+  def test_it_can_return_away_games_by_team_id
+    assert_equal 4, @stat_tracker.away_games_by_team_id(19).count
+  end
+
+  def test_it_can_return_count_of_away_goals_by_team_id
+    assert_equal 6, @stat_tracker.away_count_of_goals_by_team_id(19)
+  end
+
+  def test_it_can_return_teams_average_score_per_game_when_away
+    assert_equal 1.5, @stat_tracker.average_goals_per_game_when_away(19)
+  end
+
+
+
 end

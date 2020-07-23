@@ -45,4 +45,20 @@ module LeagueStatistics
     end.teamname
   end
 
+  def away_games_by_team_id(team_id)
+    game_teams.find_all do |game_team|
+      game_team.team_id == team_id if game_team.hoa == "away"
+    end
+  end
+
+  def away_count_of_goals_by_team_id(team_id)
+    away_games_by_team_id(team_id).sum do |game|
+      game.goals
+    end
+  end
+
+  def average_goals_per_game_when_away(team_id)
+    away_count_of_goals_by_team_id(team_id).to_f / away_games_by_team_id(team_id).count.round(2)
+  end
+
 end
