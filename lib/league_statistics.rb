@@ -36,5 +36,13 @@ module LeagueStatistics
     end.teamname
   end
 
+  def worst_offense
+    worst_offense = unique_teams.sort_by do |team_id|
+      average_goals_per_season(team_id)
+    end
+    teams.find do |team|
+      team.team_id == worst_offense.first.to_s
+    end.teamname
+  end
 
 end
