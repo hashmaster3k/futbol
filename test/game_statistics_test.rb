@@ -31,46 +31,47 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_percentage_home_wins
-    gameteam1 = MockGameTeam.new('home', 'LOSS')
-    gameteam2 = MockGameTeam.new('home', 'WIN')
-    gameteam3 = MockGameTeam.new('home', 'LOSS')
-    gameteam4 = MockGameTeam.new('home', 'WIN')
-    gameteam5 = MockGameTeam.new('away', 'WIN')
-    gameteam6 = MockGameTeam.new('away', 'WIN')
+    game_team1 = MockGameTeam.new('home', 'LOSS')
+    game_team2 = MockGameTeam.new('home', 'WIN')
+    game_team3 = MockGameTeam.new('home', 'LOSS')
+    game_team4 = MockGameTeam.new('home', 'WIN')
+    game_team5 = MockGameTeam.new('away', 'WIN')
+    game_team6 = MockGameTeam.new('away', 'WIN')
 
     @stat_tracker.stubs(:game_teams).returns([
-      gameteam1,
-      gameteam2
+      game_team1,
+      game_team2
     ])
 
     assert_equal 0.5, @stat_tracker.percentage_home_wins
 
     @stat_tracker.stubs(:game_teams).returns([
-      gameteam1,
-      gameteam6
+      game_team1,
+      game_team6
     ])
 
     assert_equal 0, @stat_tracker.percentage_home_wins
 
     @stat_tracker.stubs(:game_teams).returns([
-      gameteam1,
-      gameteam2,
-      gameteam4
+      game_team1,
+      game_team2,
+      game_team4
     ])
 
     assert_equal 0.67, @stat_tracker.percentage_home_wins
   end
 
   def test_select_by_key_value
-    mock_element1 = {happy: true, hungry: false}
-    mock_element2 = {happy: false, hungry: true}
-    mock_element3 = {happy: false, hungry: false}
-    mock_array = [mock_element1, mock_element2, mock_element3]
+    game_team1 = MockGameTeam.new('home', 'WIN')
+    game_team2 = MockGameTeam.new('home', 'LOSS')
+    game_team3 = MockGameTeam.new('away', 'WIN')
+    game_team4 = MockGameTeam.new('away', 'LOSS')
+    mock_array = [game_team1, game_team2, game_team3, game_team4]
 
-    assert_equal [mock_element1], @stat_tracker.select_by_key_value(mock_array, :happy, true)
-    assert_equal [mock_element2], @stat_tracker.select_by_key_value(mock_array, :hungry, true)
-    assert_equal [mock_element2, mock_element3], @stat_tracker.select_by_key_value(mock_array, :happy, false)
-    assert_equal [mock_element1, mock_element3], @stat_tracker.select_by_key_value(mock_array, :hungry, false)
+    assert_equal [game_team1, game_team2], @stat_tracker.select_by_key_value(mock_array, :hoa, "home")
+    assert_equal [game_team3, game_team4], @stat_tracker.select_by_key_value(mock_array, :hoa, "away")
+    assert_equal [game_team1, game_team3], @stat_tracker.select_by_key_value(mock_array, :result, "WIN")
+    assert_equal [game_team2, game_team4], @stat_tracker.select_by_key_value(mock_array, :result, "LOSS")
   end
 
   def test_game_goals
