@@ -19,7 +19,7 @@ module GameStatistics
 
   def select_by_key_value(array, key, value)
     array.select do |element|
-      element[key] == value
+      element.send(key) == value
     end
   end
 end
