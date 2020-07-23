@@ -35,4 +35,29 @@ module SeasonStatistics
     win_percentages_per_coach(season_id).min_by {|coach, win_percentage| win_percentage}[0]
   end
 
+  def group_by_teams(season_id)
+    games_from_season(season_id).group_by {|game| game.team_id}
+    # returns {team_id: [game1, game2, etc.]} per team
+  end
+
+  def accuracy_per_team(season_id)
+    acc_per_team = Hash.new(0)
+    group_by_teams(season_id).each do |t_id, games|
+      total_shots = 0
+      total_goals = 0
+      games.each do |game|
+        total_shots += game.shots
+        total_goals += game.goals
+      end
+      acc_per_team[t_id] = (total_goals.to_f / total_shots).round(4)
+    end
+    acc_per_team
+  end
+
+  # Name of the team with the best ratio of shots to goals for the season
+  def most_accurate_team(season_id)
+    acc_team_id = accuracy_per_team(season_id).max_by {|team, accuracy| accuracy}[0]
+    teams.find {|team| team.team_id.to_i == acc_team_id}.teamname
+  end
+
 end
