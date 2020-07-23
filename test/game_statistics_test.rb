@@ -61,6 +61,18 @@ class GameStatisticsTest < Minitest::Test
     assert_equal 0.67, @stat_tracker.percentage_home_wins
   end
 
+  def test_select_by_key_value
+    mock_element1 = {happy: true, hungry: false}
+    mock_element2 = {happy: false, hungry: true}
+    mock_element3 = {happy: false, hungry: false}
+    mock_array = [mock_element1, mock_element2, mock_element3]
+
+    assert_equal [mock_element1], @stat_tracker.select_by_key_value(mock_array, :happy, true)
+    assert_equal [mock_element2], @stat_tracker.select_by_key_value(mock_array, :hungry, true)
+    assert_equal [mock_element2, mock_element3], @stat_tracker.select_by_key_value(mock_array, :happy, false)
+    assert_equal [mock_element1, mock_element3], @stat_tracker.select_by_key_value(mock_array, :hungry, false)
+  end
+
   def test_game_goals
     game1 = mock("game 1")
     game2 = mock("game 2")
