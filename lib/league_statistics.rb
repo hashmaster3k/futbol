@@ -46,8 +46,11 @@ module LeagueStatistics
   end
 
   def away_games_by_team_id(team_id)
-    game_teams.find_all do |game_team|
-      game_team.team_id == team_id if game_team.hoa == "away"
+    away_games = game_teams.find_all do |game_team|
+      game_team.hoa == "away"
+    end
+    away_games.find_all do |game|
+      game.team_id == team_id
     end
   end
 
@@ -59,6 +62,15 @@ module LeagueStatistics
 
   def average_goals_per_game_when_away(team_id)
     away_count_of_goals_by_team_id(team_id).to_f / away_games_by_team_id(team_id).count.round(2)
+  end
+
+  def highest_scoring_visitor
+    highest_scoring = unique_teams.sort_by do |team_id|
+      average_goals_per_game_when_away(team_id)
+    end
+    teams.find do |team|
+      team.team_id == highest_scoring.last.to_s
+    end.teamname
   end
 
 end

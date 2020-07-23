@@ -62,6 +62,8 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal 1.5, @stat_tracker.average_goals_per_game_when_away(19)
   end
 
-
+  def test_it_can_return_highest_scoring_visitor
+    assert_equal "", @stat_tracker.highest_scoring_visitor
+  end
 
 end
