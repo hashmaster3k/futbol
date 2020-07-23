@@ -60,4 +60,10 @@ module SeasonStatistics
     teams.find {|team| team.team_id.to_i == acc_team_id}.teamname
   end
 
+  # Name of the team with the worst ratio of shots to goals for the season
+  def least_accurate_team(season_id)
+    acc_team_id = accuracy_per_team(season_id).min_by {|team, accuracy| accuracy}[0]
+    teams.find {|team| team.team_id.to_i == acc_team_id}.teamname
+  end
+
 end
