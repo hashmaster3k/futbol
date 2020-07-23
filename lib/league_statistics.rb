@@ -55,8 +55,23 @@ module LeagueStatistics
     end
   end
 
+  def home_games_by_team_id(team_id)
+    home_games = game_teams.find_all do |game_team|
+      game_team.hoa == "home"
+    end
+    home_games.find_all do |game|
+      game.team_id == team_id
+    end
+  end
+
   def away_count_of_goals_by_team_id(team_id)
     away_games_by_team_id(team_id).sum do |game|
+      game.goals
+    end
+  end
+
+  def home_count_of_goals_by_team_id(team_id)
+    home_games_by_team_id(team_id).sum do |game|
       game.goals
     end
   end
@@ -68,9 +83,25 @@ module LeagueStatistics
     away_count_of_goals_by_team_id(team_id).to_f / away_games_by_team_id(team_id).count.round(2)
   end
 
+  def average_goals_per_game_when_home(team_id)
+    num_home_games = home_games_by_team_id(team_id).count
+    return 0 if num_home_games == 0
+
+    home_count_of_goals_by_team_id(team_id).to_f / home_games_by_team_id(team_id).count.round(2)
+  end
+
   def highest_scoring_visitor
     highest_scoring = unique_teams.sort_by do |team_id|
       average_goals_per_game_when_away(team_id)
+    end
+    teams.find do |team|
+      team.team_id == highest_scoring.last.to_s
+    end.teamname
+  end
+
+  def highest_scoring_home_team
+    highest_scoring = unique_teams.sort_by do |team_id|
+      average_goals_per_game_when_home(team_id)
     end
     teams.find do |team|
       team.team_id == highest_scoring.last.to_s

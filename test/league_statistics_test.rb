@@ -68,4 +68,22 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal "Sporting Kansas City", @stat_tracker.highest_scoring_visitor
   end
 
+  def test_it_can_return_home_games_by_team_id
+    assert_equal 1, @stat_tracker.home_games_by_team_id(19).count
+  end
+
+  def test_it_can_return_count_of_home_goals_by_team_id
+    assert_equal 3, @stat_tracker.home_count_of_goals_by_team_id(19)
+  end
+
+  def test_it_can_return_teams_average_goals_per_game_when_home
+    assert_equal 3.0, @stat_tracker.average_goals_per_game_when_home(19)
+  end
+
+  def test_it_can_return_highest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+  end
+
+
+
 end
