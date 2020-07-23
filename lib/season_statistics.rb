@@ -30,4 +30,9 @@ module SeasonStatistics
     win_percentages_per_coach(season_id).max_by {|coach, win_percentage| win_percentage}[0]
   end
 
+  #	Name of the coach with the worst win percentage for the season
+  def worst_coach(season_id)
+    win_percentages_per_coach(season_id).min_by {|coach, win_percentage| win_percentage}[0]
+  end
+
 end
