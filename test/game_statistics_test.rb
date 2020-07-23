@@ -4,6 +4,7 @@ require 'mocha/minitest'
 require './lib/stat_tracker'
 
 MockGame = Struct.new(:home_goals, :away_goals)
+MockGameTeam = Struct.new(:hoa, :result)
 
 class GameStatisticsTest < Minitest::Test
   def setup
@@ -27,6 +28,37 @@ class GameStatisticsTest < Minitest::Test
     ])
 
     assert_equal 10, @stat_tracker.highest_total_score
+  end
+
+  def test_percentage_home_wins
+    gameteam1 = MockGameTeam.new('home', 'LOSS')
+    gameteam2 = MockGameTeam.new('home', 'WIN')
+    gameteam3 = MockGameTeam.new('home', 'LOSS')
+    gameteam4 = MockGameTeam.new('home', 'WIN')
+    gameteam5 = MockGameTeam.new('away', 'WIN')
+    gameteam6 = MockGameTeam.new('away', 'WIN')
+
+    @stat_tracker.stubs(:game_teams).returns([
+      gameteam1,
+      gameteam2
+    ])
+
+    assert_equal 0.5, @stat_tracker.percentage_home_wins
+
+    @stat_tracker.stubs(:game_teams).returns([
+      gameteam1,
+      gameteam6
+    ])
+
+    assert_equal 0, @stat_tracker.percentage_home_wins
+
+    @stat_tracker.stubs(:game_teams).returns([
+      gameteam1,
+      gameteam2,
+      gameteam4
+    ])
+
+    assert_equal 0.67, @stat_tracker.percentage_home_wins
   end
 
   def test_game_goals
