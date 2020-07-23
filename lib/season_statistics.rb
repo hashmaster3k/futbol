@@ -84,4 +84,10 @@ module SeasonStatistics
     teams.find {|team| team.team_id.to_i == tac_team_id}.teamname
   end
 
+  # Name of the team with the fewest tackles in the season
+  def fewest_tackles(season_id)
+    tac_team_id = calclulate_tackles_per_team(season_id).min_by {|t_id, tackles| tackles}[0]
+    teams.find {|team| team.team_id.to_i == tac_team_id}.teamname
+  end
+
 end
