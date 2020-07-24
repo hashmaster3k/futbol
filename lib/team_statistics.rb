@@ -61,7 +61,7 @@ module TeamStatistics
     all_percents = []
     win_percent_per_season(team_id).each {|season, win_percentage| all_percents << win_percentage}
     all_percents.sum / all_percents.length
-
+  end
   # Highest number of goals a particular team has scored in a single game.
   def most_goals_scored(team_id)
     get_all_games_from_team(team_id).max_by do |game|
