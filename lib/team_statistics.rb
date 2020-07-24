@@ -9,10 +9,9 @@ module TeamStatistics
   end
 
   def find_team(team_id)
-    teams.find do |team|
-      team if team.team_id == team_id
-    end
+    teams.find { |team| team.team_id == team_id }
   end
+
 
   #	A hash with key/value pairs for the following attributes: team_id, franchise_id, team_name, abbreviation, and link
   def team_info(team_id)

@@ -28,7 +28,7 @@ class TeamStatisticsTest < Minitest::Test
                 "abbreviation" => "MIN",
                 "link"         => "/api/v1/teams/18"}
 
-      assert_equal expected, @stat_tracker.team_info("18")
+    assert_equal expected, @stat_tracker.team_info("18")
   end
 
 end
