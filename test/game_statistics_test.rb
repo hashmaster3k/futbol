@@ -178,17 +178,20 @@ class GameStatisticsTest < Minitest::Test
     assert_equal expected, @stat_tracker.average_goals_per_game
   end
 
-  def test_select_by_key_value
-    game_team1 = MockGameTeam.new('home', 'WIN')
-    game_team2 = MockGameTeam.new('home', 'LOSS')
-    game_team3 = MockGameTeam.new('away', 'WIN')
-    game_team4 = MockGameTeam.new('away', 'LOSS')
-    mock_array = [game_team1, game_team2, game_team3, game_team4]
+  def test_all_seasons
+    game1 = MockGame.new(20122013, 3, 2)
+    game2 = MockGame.new(20122013, 2, 1)
+    game3 = MockGame.new(20122013, 4, 0)
+    game4 = MockGame.new(20132014, 1, 1)
+    game5 = MockGame.new(20132014, 1, 2)
+    game6 = MockGame.new(20142015, 0, 3)
 
-    assert_equal [game_team1, game_team2], @stat_tracker.select_by_key_value(mock_array, :hoa, "home")
-    assert_equal [game_team3, game_team4], @stat_tracker.select_by_key_value(mock_array, :hoa, "away")
-    assert_equal [game_team1, game_team3], @stat_tracker.select_by_key_value(mock_array, :result, "WIN")
-    assert_equal [game_team2, game_team4], @stat_tracker.select_by_key_value(mock_array, :result, "LOSS")
+    mock_games = [game1, game2, game3, game4, game5, game6]
+
+    @stat_tracker.stubs(:games).returns(mock_games)
+
+    expected = ["20122013", "20132014", "20142015"]
+    assert_equal expected, @stat_tracker.all_seasons
   end
 
   def test_games_goal_totals
@@ -205,5 +208,18 @@ class GameStatisticsTest < Minitest::Test
     game = MockGame.new(nil, 2, 3)
 
     assert_equal 5, @stat_tracker.total_goals(game)
+  end
+
+  def test_select_by_key_value
+    game_team1 = MockGameTeam.new('home', 'WIN')
+    game_team2 = MockGameTeam.new('home', 'LOSS')
+    game_team3 = MockGameTeam.new('away', 'WIN')
+    game_team4 = MockGameTeam.new('away', 'LOSS')
+    mock_array = [game_team1, game_team2, game_team3, game_team4]
+
+    assert_equal [game_team1, game_team2], @stat_tracker.select_by_key_value(mock_array, :hoa, "home")
+    assert_equal [game_team3, game_team4], @stat_tracker.select_by_key_value(mock_array, :hoa, "away")
+    assert_equal [game_team1, game_team3], @stat_tracker.select_by_key_value(mock_array, :result, "WIN")
+    assert_equal [game_team2, game_team4], @stat_tracker.select_by_key_value(mock_array, :result, "LOSS")
   end
 end
