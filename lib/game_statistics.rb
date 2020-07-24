@@ -38,6 +38,10 @@ module GameStatistics
     end
   end
 
+  def average_goals_per_game
+    (game_goals.sum.to_f / games.length).round(2)
+  end
+
   def game_goals
     games.map do |game|
       game.home_goals + game.away_goals
