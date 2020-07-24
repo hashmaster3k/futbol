@@ -49,4 +49,17 @@ module TeamStatistics
     get_full_season(winning_season)
   end
 
+  # Season with the lowest win percentage for a team.
+  def worst_season(team_id)
+    losing_season = win_percent_per_season(team_id).min_by {|season, win_percent| win_percent}
+    get_full_season(losing_season)
+  end
+
+  # Average win percentage of all games for a team.
+  def average_win_percentage(team_id)
+    all_percents = []
+    win_percent_per_season(team_id).each {|season, win_percentage| all_percents << win_percentage}
+    all_percents.sum / all_percents.length
+  end
+
 end
