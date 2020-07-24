@@ -49,4 +49,10 @@ module TeamStatistics
     get_full_season(winning_season)
   end
 
+  def most_goals_scored(team_id)
+    get_all_games_from_team(team_id).max_by do |game|
+      game.goals
+    end.goals
+  end
+
 end
