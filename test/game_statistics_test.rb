@@ -3,7 +3,7 @@ require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/stat_tracker'
 
-MockGame = Struct.new(:home_goals, :away_goals)
+MockGame = Struct.new(:season, :home_goals, :away_goals)
 MockGameTeam = Struct.new(:hoa, :result)
 
 class GameStatisticsTest < Minitest::Test
@@ -18,9 +18,9 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_highest_total_score
-    game1 = MockGame.new(4, 6)
-    game2 = MockGame.new(2, 2)
-    game3 = MockGame.new(0, 3)
+    game1 = MockGame.new(nil, 4, 6)
+    game2 = MockGame.new(nil, 2, 2)
+    game3 = MockGame.new(nil, 0, 3)
     @stat_tracker.stubs(:games).returns([
       game1,
       game2,
@@ -31,9 +31,9 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_lowest_total_score
-    game1 = MockGame.new(4, 6)
-    game2 = MockGame.new(2, 2)
-    game3 = MockGame.new(0, 3)
+    game1 = MockGame.new(nil, 4, 6)
+    game2 = MockGame.new(nil, 2, 2)
+    game3 = MockGame.new(nil, 0, 3)
     @stat_tracker.stubs(:games).returns([
       game1,
       game2,
@@ -134,6 +134,20 @@ class GameStatisticsTest < Minitest::Test
     ])
 
     assert_equal 0.33, @stat_tracker.percentage_ties
+  end
+
+  def test_count_of_games_by_season
+    game1 = MockGame.new(20122013, nil, nil)
+    game2 = MockGame.new(20122013, nil, nil)
+    game3 = MockGame.new(20122013, nil, nil)
+    game4 = MockGame.new(20132014, nil, nil)
+    game5 = MockGame.new(20132014, nil, nil)
+    game6 = MockGame.new(20142015, nil, nil)
+    mock_games = [game1, game2, game3, game4]
+    @stat_tracker.stubs(:games).returns(mock_games)
+
+    expected = {"20122013" => 3, "20132014" => 2, "20142015" => 1}
+    assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
   def test_select_by_key_value
