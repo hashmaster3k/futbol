@@ -108,4 +108,13 @@ module LeagueStatistics
     end.teamname
   end
 
+  def lowest_scoring_visitor
+    lowest_scoring = unique_teams.sort_by do |team_id|
+      average_goals_per_game_when_away(team_id)
+    end
+    teams.find do |team|
+      team.team_id == lowest_scoring.first.to_s
+    end.teamname
+  end
+
 end
