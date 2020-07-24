@@ -200,4 +200,10 @@ class GameStatisticsTest < Minitest::Test
     expected = [5,3]
     assert_equal expected, @stat_tracker.games_goal_totals(@stat_tracker.games)
   end
+
+  def test_total_goals
+    game = MockGame.new(nil, 2, 3)
+
+    assert_equal 5, @stat_tracker.total_goals(game)
+  end
 end
