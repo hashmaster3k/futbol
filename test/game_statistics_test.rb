@@ -191,17 +191,13 @@ class GameStatisticsTest < Minitest::Test
     assert_equal [game_team2, game_team4], @stat_tracker.select_by_key_value(mock_array, :result, "LOSS")
   end
 
-  def test_game_goals
-    game1 = mock("game 1")
-    game2 = mock("game 2")
-    game1.stubs(:home_goals).returns(2)
-    game1.stubs(:away_goals).returns(3)
-    game2.stubs(:home_goals).returns(0)
-    game2.stubs(:away_goals).returns(3)
+  def test_games_goal_totals
+    game1 = MockGame.new(nil, 2, 3)
+    game2 = MockGame.new(nil, 0, 3)
 
     @stat_tracker.stubs(:games).returns([game1, game2])
 
     expected = [5,3]
-    assert_equal expected, @stat_tracker.game_goals
+    assert_equal expected, @stat_tracker.games_goal_totals(@stat_tracker.games)
   end
 end
