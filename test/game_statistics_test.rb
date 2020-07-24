@@ -21,6 +21,7 @@ class GameStatisticsTest < Minitest::Test
     game1 = MockGame.new(nil, 4, 6)
     game2 = MockGame.new(nil, 2, 2)
     game3 = MockGame.new(nil, 0, 3)
+    
     @stat_tracker.stubs(:games).returns([
       game1,
       game2,
