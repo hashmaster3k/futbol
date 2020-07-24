@@ -158,24 +158,21 @@ class GameStatisticsTest < Minitest::Test
     game4 = MockGame.new(20132014, 1, 1)
     game5 = MockGame.new(20132014, 1, 2)
     game6 = MockGame.new(20142015, 0, 3)
-    mock_games1 = [game1, game2, game3, game4, game5, game6] # 20 / 6 => 3.333?
-    mock_games2 = [game1, game2] # 8 / 2 => 4
-    mock_games3 = [game1, game5, game6] # 11 / 3 => 3.666?
+    mock_games1 = [game1, game2, game3, game4, game5, game6]
+    mock_games2 = [game1, game2]
+    mock_games3 = [game1, game5, game6]
 
     @stat_tracker.stubs(:games).returns(mock_games1)
 
-    expected = (20.to_f / 6).round(2)
-    assert_equal expected, @stat_tracker.average_goals_per_game
+    assert_equal 3.33, @stat_tracker.average_goals_per_game
 
     @stat_tracker.stubs(:games).returns(mock_games2)
 
-    expected = 4
-    assert_equal expected, @stat_tracker.average_goals_per_game
+    assert_equal 4, @stat_tracker.average_goals_per_game
 
     @stat_tracker.stubs(:games).returns(mock_games3)
 
-    expected = (11.to_f / 3).round(2)
-    assert_equal expected, @stat_tracker.average_goals_per_game
+    assert_equal 3.67, @stat_tracker.average_goals_per_game
   end
 
   def test_average_goals_by_season
