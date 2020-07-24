@@ -42,6 +42,14 @@ module GameStatistics
     (games_goal_totals(games).sum.to_f / games.length).round(2)
   end
 
+  def all_seasons
+    games.reduce([]) do |seasons, game|
+      season = game.season.to_s
+      seasons << season unless seasons.include?(season)
+      seasons
+    end
+  end
+
   def games_goal_totals games
     games.map { |game| total_goals(game) }
   end
