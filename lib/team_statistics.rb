@@ -49,7 +49,6 @@ module TeamStatistics
     get_full_season(winning_season)
   end
 
-
   # Season with the lowest win percentage for a team.
   def worst_season(team_id)
     losing_season = win_percent_per_season(team_id).min_by {|season, win_percent| win_percent}
@@ -61,6 +60,7 @@ module TeamStatistics
     all_percents = []
     win_percent_per_season(team_id).each {|season, win_percentage| all_percents << win_percentage}
     all_percents.sum / all_percents.length
+  end
 
   # Highest number of goals a particular team has scored in a single game.
   def most_goals_scored(team_id)
