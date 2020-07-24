@@ -30,6 +30,19 @@ class GameStatisticsTest < Minitest::Test
     assert_equal 10, @stat_tracker.highest_total_score
   end
 
+  def test_lowest_total_score
+    game1 = MockGame.new(4, 6)
+    game2 = MockGame.new(2, 2)
+    game3 = MockGame.new(0, 3)
+    @stat_tracker.stubs(:games).returns([
+      game1,
+      game2,
+      game3
+    ])
+
+    assert_equal 3, @stat_tracker.lowest_total_score
+  end
+
   def test_percentage_home_wins
     game_team1 = MockGameTeam.new('home', 'LOSS')
     game_team2 = MockGameTeam.new('home', 'WIN')

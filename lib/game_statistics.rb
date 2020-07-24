@@ -3,6 +3,10 @@ module GameStatistics
     game_goals.max
   end
 
+  def lowest_total_score
+    game_goals.min
+  end
+
   def game_goals
     games.map do |game|
       game.home_goals + game.away_goals
