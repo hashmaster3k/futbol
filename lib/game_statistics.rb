@@ -29,6 +29,12 @@ module GameStatistics
     (won_visitor_games.length.to_f / visitor_games.length).round(2)
   end
 
+  def percentage_ties
+    tied_games = select_by_key_value(game_teams, :result, 'TIE')
+
+    (tied_games.length.to_f / game_teams.length).round(2)
+  end
+
   def select_by_key_value(array, key, value)
     array.select do |element|
       element.send(key) == value
