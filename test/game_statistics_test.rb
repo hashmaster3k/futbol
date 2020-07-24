@@ -74,6 +74,37 @@ class GameStatisticsTest < Minitest::Test
     assert_equal 0.67, @stat_tracker.percentage_home_wins
   end
 
+  def test_percentage_visitor_wins
+    game_team1 = MockGameTeam.new('away', 'LOSS')
+    game_team2 = MockGameTeam.new('away', 'WIN')
+    game_team3 = MockGameTeam.new('away', 'LOSS')
+    game_team4 = MockGameTeam.new('away', 'WIN')
+    game_team5 = MockGameTeam.new('home', 'WIN')
+    game_team6 = MockGameTeam.new('home', 'WIN')
+
+    @stat_tracker.stubs(:game_teams).returns([
+      game_team1,
+      game_team2
+    ])
+
+    assert_equal 0.5, @stat_tracker.percentage_visitor_wins
+
+    @stat_tracker.stubs(:game_teams).returns([
+      game_team1,
+      game_team6
+    ])
+
+    assert_equal 0, @stat_tracker.percentage_visitor_wins
+
+    @stat_tracker.stubs(:game_teams).returns([
+      game_team1,
+      game_team2,
+      game_team4
+    ])
+
+    assert_equal 0.67, @stat_tracker.percentage_visitor_wins
+  end
+
   def test_select_by_key_value
     game_team1 = MockGameTeam.new('home', 'WIN')
     game_team2 = MockGameTeam.new('home', 'LOSS')
