@@ -42,6 +42,15 @@ module GameStatistics
     (games_goal_totals(games).sum.to_f / games.length).round(2)
   end
 
+  def average_goals_by_season
+    # average goals by seaon abbreviated => agbs
+    all_seasons.reduce({}) do |agbs, season|
+      season_games = select_by_key_value(games, :season, season.to_i)
+      agbs[season] = (games_goal_totals(season_games).sum.to_f / season_games.length).round(2)
+      agbs
+    end
+  end
+
   def all_seasons
     games.reduce([]) do |seasons, game|
       season = game.season.to_s
