@@ -7,12 +7,6 @@ module GameStatistics
     game_goals.min
   end
 
-  def game_goals
-    games.map do |game|
-      game.home_goals + game.away_goals
-    end
-  end
-
   def percentage_home_wins
     home_games = select_by_key_value(game_teams, :hoa, 'home')
 
@@ -33,6 +27,21 @@ module GameStatistics
     tied_games = select_by_key_value(game_teams, :result, 'TIE')
 
     (tied_games.length.to_f / game_teams.length).round(2)
+  end
+
+  def count_of_games_by_season
+    initial_value = Hash.new { |h,k| h[k] = 0}
+    games.reduce(initial_value) do |count_acc, game|
+      season = game.season.to_s
+      count_acc[season] += 1
+      count_acc
+    end
+  end
+
+  def game_goals
+    games.map do |game|
+      game.home_goals + game.away_goals
+    end
   end
 
   def select_by_key_value(array, key, value)
