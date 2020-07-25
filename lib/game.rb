@@ -1,6 +1,5 @@
-# frozen_string_literal: true
+require 'csv'
 
-# Game
 class Game
   attr_reader :game_id,
               :season,
@@ -24,5 +23,14 @@ class Game
     @home_goals   = args[:home_goals].to_i
     @venue        = args[:venue]
     @venue_link   = args[:venue_link]
+  end
+
+  def self.create_games(path)
+    return [] if !File.exist?(path)
+    games = []
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |game_data|
+      games << new(game_data)
+    end
+    games
   end
 end
