@@ -18,17 +18,12 @@ class GamesCollectionTest < Minitest::Test
   end
 
   def test_it_can_read
-    @gc.from_csv('./test/fixtures/games.csv')
     assert_equal 240, @gc.all_games.length
     assert_equal Game, @gc.all_games[0].class
   end
 
-  def test_game_teams_empty
-    assert_equal [], @gc.all_games
-  end
-
   def test_add_game_teams
     @gc.add_game({})
-    assert_equal 1, @gc.all_games.length
+    assert_equal 241, @gc.all_games.length
   end
 end
