@@ -1,6 +1,6 @@
-require_relative './game_teams_collection'
-require_relative './games_collection'
-require_relative './teams_collection'
+require_relative './game_team'
+require_relative './game'
+require_relative './team'
 require_relative './game_statistics'
 require_relative './season_statistics'
 require_relative './league_statistics'
@@ -19,9 +19,9 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    game_teams = GameTeamsCollection.new(locations[:game_teams]).all_game_teams
-    games = GamesCollection.new(locations[:games]).all_games
-    teams = TeamsCollection.new(locations[:teams]).all_teams
+    game_teams = GameTeam.create_game_teams(locations[:game_teams])
+    games = Game.create_games(locations[:games])
+    teams = Team.create_teams(locations[:teams])
 
     new(game_teams, games, teams)
   end
