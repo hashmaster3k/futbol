@@ -76,4 +76,45 @@ module TeamStatistics
     end.goals
   end
 
+  def get_all_team_games(team_id)
+    games.find_all do |game|
+      game.home_team_id == team_id.to_i || game.away_team_id == team_id.to_i
+    end
+  end
+
+  def get_games_by_id(team_id)
+    get_all_team_games(team_id).map do |game|
+      game.game_id
+    end
+  end
+
+  def gets_game_opponents(team_id)
+    game_teams.find_all do |game_team|
+      get_games_by_id(team_id).include?(game_team.game_id) && game_team.team_id != team_id.to_i
+    end
+  end
+
+  def games_by_wins(team_id)
+    gets_game_opponents(team_id).group_by do |opponent|
+      opponent.team_id
+    end
+  end
+
+  def win_percent_per_team(team_id)
+    result = Hash.new(0)
+    games_by_wins(team_id).each do |t_id, games|
+      games_won = games.find_all do |game|
+        game.result == "WIN"
+      end
+      result[t_id] = (games_won.length.to_f / games.length).round(2)
+    end
+    result
+  end
+
+  def favorite_opponent(team_id)
+    highest_win_percent = win_percent_per_team(team_id).min_by do |t_id, win_percent|
+        win_percent
+    end
+    find_team(highest_win_percent[0].to_s).teamname
+  end
 end
