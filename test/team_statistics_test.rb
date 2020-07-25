@@ -52,7 +52,12 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_return_name_of_favorite_opponent
+    skip
     assert_equal "DC United", @stat_tracker.favorite_opponent("18")
+  end
+
+  def test_it_can_return_name_of_rival
+    assert_equal "LA Galaxy", @stat_tracker.rival("18")
   end
 
 end

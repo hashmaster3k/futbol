@@ -117,4 +117,12 @@ module TeamStatistics
     end
     find_team(highest_win_percent[0].to_s).teamname
   end
+
+  def rival(team_id)
+    lowest_win_percentage = win_percent_per_team(team_id).max_by do |t_id, win_percent|
+        win_percent
+    end
+    find_team(lowest_win_percentage[0].to_s).teamname
+  end
+
 end
