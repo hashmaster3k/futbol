@@ -51,4 +51,8 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 0, @stat_tracker.fewest_goals_scored("18")
   end
 
+  def test_it_can_return_name_of_favorite_opponent
+    assert_equal "DC United", @stat_tracker.favorite_opponent("18")
+  end
+
 end
