@@ -10,15 +10,15 @@
 * [Reflection](#reflection)
 * [Contributors](#contributors)
 
-## Project Description
+## Description
 
 An application that uses data from a fictional soccer league to analyze team performance for specific seasons and across seasons.
 
-## Project Status
+## Status
 
 This project is currently in development.
 
-## Project Goals
+## Goals
 
   - Use Test Driven Development
   - Develop an Object Oriented solution
