@@ -1,7 +1,5 @@
 # Futbol
 
-Futbol
-
 An application that uses data from a fictional soccer league to analyze team performance for specific seasons and across seasons.
 
 ## Project Status
@@ -66,3 +64,9 @@ Some unexpected obstacles were |########|. This obstacle caused |#######|.
 __What tools did you use to implement this project?__
 
 The technologies implemented in this project were |#########|. We chose to use |######| because |#####|.
+
+## Contributors
+
+[Daniel Halverson](https://github.com/dhalverson)
+[Hashim Gari](https://github.com/hashmaster3k)
+[Ryan Barnett](https://github.com/RyanDBarnett)
