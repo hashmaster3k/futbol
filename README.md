@@ -1,5 +1,17 @@
 # Futbol
 
+## Table of Contents
+* [Description](#description)
+* [Status](#status)
+* [Goals](#goals)
+* [Screen Shots](#screen-shots)
+* [Installation and Setup](#installation-and-setup)
+* [Technologies Used](#technologies-used)
+* [Reflection](#reflection)
+* [Contributors](#contributors)
+
+## Project Description
+
 An application that uses data from a fictional soccer league to analyze team performance for specific seasons and across seasons.
 
 ## Project Status
@@ -16,13 +28,13 @@ This project is currently in development.
   - Work in a group
   - Collaborate with partners via Pull Requests
 
-## Project Screen Shot(s)
+## Screen Shots
 
 [ PRETEND SCREEN SHOT IS HERE ]
 
 [ PRETEND OTHER SCREEN SHOT IS HERE ]
 
-## Installation and Setup Instructions
+## Installation and Setup
 
 You will need [ruby](https://www.ruby-lang.org/en/downloads/) installed globally on your machine.
 
@@ -42,6 +54,9 @@ To Run Application:
 
 `ruby runner.rb`
 
+## Technologies Used
+
+Ruby
 
 ## Reflection
 
@@ -61,12 +76,12 @@ __What were some unexpected obstacles?__
 
 Some unexpected obstacles were |########|. This obstacle caused |#######|.
 
-__What tools did you use to implement this project?__
+__What tools did you use to implement this project? Why did you decide to use these tools?__
 
 The technologies implemented in this project were |#########|. We chose to use |######| because |#####|.
 
 ## Contributors
 
-[Daniel Halverson](https://github.com/dhalverson)
-[Hashim Gari](https://github.com/hashmaster3k)
-[Ryan Barnett](https://github.com/RyanDBarnett)
+- [Daniel Halverson](https://github.com/dhalverson)
+- [Hashim Gari](https://github.com/hashmaster3k)
+- [Ryan Barnett](https://github.com/RyanDBarnett)
