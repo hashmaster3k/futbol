@@ -38,21 +38,19 @@ This project is currently in development.
 
 You will need [ruby](https://www.ruby-lang.org/en/downloads/) installed globally on your machine.
 
-Clone down this repository.
+In your terminal enter the following commands:
 
-`git clone https://github.com/hashmaster3k/futbol.git`
+```
+# Clone Repository
+git clone https://github.com/hashmaster3k/futbol.git
+cd futbol
 
-Change directory into the project.
+# Run Application
+ruby runner.rb
 
-`cd futbol`
-
-To Run Test Suite:  
-
-`rake`
-
-To Run Application:
-
-`ruby runner.rb`
+# Run Test Suite
+rake
+```
 
 ## Technologies Used
 
