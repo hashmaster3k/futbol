@@ -66,10 +66,3 @@ Some unexpected obstacles were |########|. This obstacle caused |#######|.
 __What tools did you use to implement this project?__
 
 The technologies implemented in this project were |#########|. We chose to use |######| because |#####|.
-
-
-One of the main challenges I ran into was |########|.
-
-At the end of the day, the technologies implemented in this project are |#########|. We chose to use the |######| because |#####|.
-
-If I had to do this project again I would do |########|
