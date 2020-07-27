@@ -47,10 +47,8 @@ class GameStatisticsTest < Minitest::Test
   def test_percentage_home_wins
     game_team1 = MockGameTeam.new('home', 'LOSS')
     game_team2 = MockGameTeam.new('home', 'WIN')
-    game_team3 = MockGameTeam.new('home', 'LOSS')
-    game_team4 = MockGameTeam.new('home', 'WIN')
-    game_team5 = MockGameTeam.new('away', 'WIN')
-    game_team6 = MockGameTeam.new('away', 'WIN')
+    game_team3 = MockGameTeam.new('home', 'WIN')
+    game_team4 = MockGameTeam.new('away', 'WIN')
 
     @stat_tracker.stubs(:game_teams).returns([
       game_team1,
@@ -61,7 +59,7 @@ class GameStatisticsTest < Minitest::Test
 
     @stat_tracker.stubs(:game_teams).returns([
       game_team1,
-      game_team6
+      game_team4
     ])
 
     assert_equal 0, @stat_tracker.percentage_home_wins
@@ -69,7 +67,7 @@ class GameStatisticsTest < Minitest::Test
     @stat_tracker.stubs(:game_teams).returns([
       game_team1,
       game_team2,
-      game_team4
+      game_team3
     ])
 
     assert_equal 0.67, @stat_tracker.percentage_home_wins
@@ -78,10 +76,8 @@ class GameStatisticsTest < Minitest::Test
   def test_percentage_visitor_wins
     game_team1 = MockGameTeam.new('away', 'LOSS')
     game_team2 = MockGameTeam.new('away', 'WIN')
-    game_team3 = MockGameTeam.new('away', 'LOSS')
-    game_team4 = MockGameTeam.new('away', 'WIN')
-    game_team5 = MockGameTeam.new('home', 'WIN')
-    game_team6 = MockGameTeam.new('home', 'WIN')
+    game_team3 = MockGameTeam.new('away', 'WIN')
+    game_team4 = MockGameTeam.new('home', 'WIN')
 
     @stat_tracker.stubs(:game_teams).returns([
       game_team1,
@@ -92,7 +88,7 @@ class GameStatisticsTest < Minitest::Test
 
     @stat_tracker.stubs(:game_teams).returns([
       game_team1,
-      game_team6
+      game_team4
     ])
 
     assert_equal 0, @stat_tracker.percentage_visitor_wins
@@ -100,7 +96,7 @@ class GameStatisticsTest < Minitest::Test
     @stat_tracker.stubs(:game_teams).returns([
       game_team1,
       game_team2,
-      game_team4
+      game_team3
     ])
 
     assert_equal 0.67, @stat_tracker.percentage_visitor_wins
@@ -110,9 +106,7 @@ class GameStatisticsTest < Minitest::Test
     game_team1 = MockGameTeam.new('away', 'TIE')
     game_team2 = MockGameTeam.new('away', 'TIE')
     game_team3 = MockGameTeam.new('away', 'LOSS')
-    game_team4 = MockGameTeam.new('away', 'WIN')
-    game_team5 = MockGameTeam.new('home', 'WIN')
-    game_team6 = MockGameTeam.new('home', 'WIN')
+    game_team4 = MockGameTeam.new('home', 'WIN')
 
     @stat_tracker.stubs(:game_teams).returns([
       game_team1,
@@ -123,7 +117,7 @@ class GameStatisticsTest < Minitest::Test
 
     @stat_tracker.stubs(:game_teams).returns([
       game_team1,
-      game_team6
+      game_team4
     ])
 
     assert_equal 0.5, @stat_tracker.percentage_ties
@@ -131,7 +125,7 @@ class GameStatisticsTest < Minitest::Test
     @stat_tracker.stubs(:game_teams).returns([
       game_team1,
       game_team3,
-      game_team6
+      game_team4
     ])
 
     assert_equal 0.33, @stat_tracker.percentage_ties
