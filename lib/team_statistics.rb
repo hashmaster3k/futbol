@@ -118,11 +118,62 @@ module TeamStatistics
     find_team(highest_win_percent[0].to_s).teamname
   end
 
+  # def rival(team_id)
+  #   lowest_win_percentage = win_percent_per_team(team_id).max_by do |t_id, win_percent|
+  #       win_percent
+  #   end
+  #   find_team(lowest_win_percentage[0].to_s).teamname
+  # end
+
   def rival(team_id)
-    lowest_win_percentage = win_percent_per_team(team_id).max_by do |t_id, win_percent|
-        win_percent
+    # loop through games with reduce to a build a hash
+    # keys are opponent team ids
+    # values are the count of wins/losses
+    team_id = team_id.to_i
+    initial_value = Hash.new { |h,k| h[k] = 0}
+    opponent_win_count = games.reduce(initial_value) do |opponent_win_count, game|
+      if this_game_matters?(game, team_id)
+        opponent_id = get_opponent_id(game, team_id)
+        change_opponent_count(game, opponent_id, opponent_win_count)
+      end
+      opponent_win_count
     end
-    find_team(lowest_win_percentage[0].to_s).teamname
+    # sort the hash to find rival
+    rival_id = opponent_win_count.sort_by {|k, v| v}.last[0]
+    # find the team by rival id
+    rival_team = find_team(rival_id.to_s)
+    rival_team.teamname
   end
 
+  def change_opponent_count(game, opponent_id, opponent_win_count)
+    if opponent_won?(game, opponent_id)
+      opponent_win_count[opponent_id] += 1
+    else
+      opponent_win_count[opponent_id] -= 1
+    end
+  end
+
+  def get_opponent_id(game, team_id)
+    if game.home_team_id == team_id
+      game.away_team_id
+    else
+      game.home_team_id
+    end
+  end
+
+  def this_game_matters?(game, team_id)
+    game.home_team_id == team_id || game.away_team_id == team_id
+  end
+
+  def opponent_away?(game, opponent_id)
+    game.away_team_id == opponent_id
+  end
+
+  def opponent_won? (game, opponent_id)
+    if opponent_away?(game, opponent_id)
+      game.away_goals > game.home_goals
+    else
+      game.away_goals < game.home_goals
+    end
+  end
 end
