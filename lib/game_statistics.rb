@@ -1,10 +1,10 @@
 module GameStatistics
   def highest_total_score
-    game_goals.max
+    games_goal_totals(games).max
   end
 
   def lowest_total_score
-    game_goals.min
+    games_goal_totals(games).min
   end
 
   def percentage_home_wins
@@ -39,13 +39,32 @@ module GameStatistics
   end
 
   def average_goals_per_game
-    (game_goals.sum.to_f / games.length).round(2)
+    (games_goal_totals(games).sum.to_f / games.length).round(2)
   end
 
-  def game_goals
-    games.map do |game|
-      game.home_goals + game.away_goals
+  def average_goals_by_season
+    # average goals by seaon abbreviated => agbs
+    all_seasons.reduce({}) do |agbs, season|
+      season_games = select_by_key_value(games, :season, season.to_i)
+      agbs[season] = (games_goal_totals(season_games).sum.to_f / season_games.length).round(2)
+      agbs
     end
+  end
+
+  def all_seasons
+    games.reduce([]) do |seasons, game|
+      season = game.season.to_s
+      seasons << season unless seasons.include?(season)
+      seasons
+    end
+  end
+
+  def games_goal_totals games
+    games.map { |game| total_goals(game) }
+  end
+
+  def total_goals game
+    game.home_goals + game.away_goals
   end
 
   def select_by_key_value(array, key, value)
