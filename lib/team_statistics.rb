@@ -126,23 +126,26 @@ module TeamStatistics
   # end
 
   def rival(team_id)
+    # sort the hash to find rival
+    rival_id = opponent_win_count(team_id).sort_by {|k, v| v}.last[0]
+    # find the team by rival id
+    rival_team = find_team(rival_id.to_s)
+    rival_team.teamname
+  end
+
+  def opponent_win_count(team_id)
     # loop through games with reduce to a build a hash
     # keys are opponent team ids
     # values are the count of wins/losses
     team_id = team_id.to_i
     initial_value = Hash.new { |h,k| h[k] = 0}
-    opponent_win_count = games.reduce(initial_value) do |opponent_win_count, game|
+    games.reduce(initial_value) do |opponent_win_count, game|
       if this_game_matters?(game, team_id)
         opponent_id = get_opponent_id(game, team_id)
         change_opponent_count(game, opponent_id, opponent_win_count)
       end
       opponent_win_count
     end
-    # sort the hash to find rival
-    rival_id = opponent_win_count.sort_by {|k, v| v}.last[0]
-    # find the team by rival id
-    rival_team = find_team(rival_id.to_s)
-    rival_team.teamname
   end
 
   def change_opponent_count(game, opponent_id, opponent_win_count)
