@@ -1,3 +1,4 @@
+require './test/test_helper'
 require './lib/team_statistics'
 require './lib/stat_tracker'
 require 'minitest/autorun'

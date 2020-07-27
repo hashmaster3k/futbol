@@ -1,3 +1,4 @@
+require './test/test_helper'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game'
@@ -23,6 +24,7 @@ class GameTest < Minitest::Test
   end
 
   def test_it_has_attributes
+    skip
     assert_equal "2012030221", @game.game_id
     assert_equal "20122013", @game.season
     assert_equal "Postseason", @game.type
