@@ -3,6 +3,7 @@ require './lib/season_statistics'
 require './lib/stat_tracker'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 
 class StatTrackerTest < Minitest::Test
 
@@ -20,6 +21,33 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of StatTracker, @stat_tracker
+  end
+
+  def test_winningest_coach_with_mock
+    locations = {
+      games: 'no path',
+      teams: 'no path',
+      game_teams: 'no path'
+    }
+
+    stat_tracker = StatTracker.from_csv(locations)
+
+    game_team_1 = mock(game_id: 2012001, head_coach: "Tom", result: "WIN")
+    game_team_2 = mock(game_id: 2012002, head_coach: "Tom", result: "LOSS")
+    game_team_3 = mock(game_id: 2012003, head_coach: "Bill", result: "WIN")
+    game_team_4 = mock(game_id: 2012004, head_coach: "Bill", result: "WIN")
+    game_team_5 = mock(game_id: 2012005, head_coach: "Nick", result: "WIN")
+    game_team_6 = mock(game_id: 2012006, head_coach: "Nick", result: "LOSS")
+
+
+    stat_tracker.stubs(:game_teams).returns([game_team_1,
+                                             game_team_2,
+                                             game_team_3,
+                                             game_team_4,
+                                             game_team_5,
+                                             game_team_6])
+
+    assert_equal "Bill", stat_tracker.winningest_coach("20122013")
   end
 
   def test_winningest_coach
