@@ -20,9 +20,9 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_highest_total_score
-    game1 = stub(home_goals: 4, away_goals: 6)
-    game2 = stub(home_goals: 2, away_goals: 2)
-    game3 = stub(home_goals: 0, away_goals: 3)
+    game1 = mock(home_goals: 4, away_goals: 6)
+    game2 = mock(home_goals: 2, away_goals: 2)
+    game3 = mock(home_goals: 0, away_goals: 3)
 
     @stat_tracker.stubs(:games).returns([
       game1,
@@ -34,9 +34,9 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_lowest_total_score
-    game1 = stub(home_goals: 4, away_goals: 6)
-    game2 = stub(home_goals: 2, away_goals: 2)
-    game3 = stub(home_goals: 0, away_goals: 3)
+    game1 = mock(home_goals: 4, away_goals: 6)
+    game2 = mock(home_goals: 2, away_goals: 2)
+    game3 = mock(home_goals: 0, away_goals: 3)
     @stat_tracker.stubs(:games).returns([
       game1,
       game2,
@@ -47,10 +47,10 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_percentage_home_wins
-    game_team1 = stub(hoa: 'home', result: 'LOSS')
-    game_team2 = stub(hoa: 'home', result: 'WIN')
-    game_team3 = stub(hoa: 'home', result: 'WIN')
-    game_team4 = stub(hoa: 'away', result: 'WIN')
+    game_team1 = mock(hoa: 'home', result: 'LOSS')
+    game_team2 = mock(hoa: 'home', result: 'WIN')
+    game_team3 = mock(hoa: 'home', result: 'WIN')
+    game_team4 = mock(hoa: 'away', result: 'WIN')
 
     @stat_tracker.stubs(:game_teams).returns([
       game_team1,
@@ -76,10 +76,10 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_percentage_visitor_wins
-    game_team1 = stub(hoa: 'away', result: 'LOSS')
-    game_team2 = stub(hoa: 'away', result: 'WIN')
-    game_team3 = stub(hoa: 'away', result: 'WIN')
-    game_team4 = stub(hoa: 'home', result: 'WIN')
+    game_team1 = mock(hoa: 'away', result: 'LOSS')
+    game_team2 = mock(hoa: 'away', result: 'WIN')
+    game_team3 = mock(hoa: 'away', result: 'WIN')
+    game_team4 = mock(hoa: 'home', result: 'WIN')
 
     @stat_tracker.stubs(:game_teams).returns([
       game_team1,
@@ -105,10 +105,10 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_percentage_ties
-    game_team1 = stub(hoa: 'away', result: 'TIE')
-    game_team2 = stub(hoa: 'away', result: 'TIE')
-    game_team3 = stub(hoa: 'away', result: 'LOSS')
-    game_team4 = stub(hoa: 'home', result: 'WIN')
+    game_team1 = mock(hoa: 'away', result: 'TIE')
+    game_team2 = mock(hoa: 'away', result: 'TIE')
+    game_team3 = mock(hoa: 'away', result: 'LOSS')
+    game_team4 = mock(hoa: 'home', result: 'WIN')
 
     @stat_tracker.stubs(:game_teams).returns([
       game_team1,
@@ -134,12 +134,12 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_count_of_games_by_season
-    game1 = stub(season: 20122013)
-    game2 = stub(season: 20122013)
-    game3 = stub(season: 20122013)
-    game4 = stub(season: 20132014)
-    game5 = stub(season: 20132014)
-    game6 = stub(season: 20142015)
+    game1 = mock(season: 20122013)
+    game2 = mock(season: 20122013)
+    game3 = mock(season: 20122013)
+    game4 = mock(season: 20132014)
+    game5 = mock(season: 20132014)
+    game6 = mock(season: 20142015)
     games = [game1, game2, game3, game4, game5, game6]
     @stat_tracker.stubs(:games).returns(games)
 
@@ -148,12 +148,12 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_average_goals_per_game
-    game1 = stub(season: 20122013, home_goals: 3, away_goals: 2)
-    game2 = stub(season: 20122013, home_goals: 2, away_goals: 1)
-    game3 = stub(season: 20122013, home_goals: 4, away_goals: 0)
-    game4 = stub(season: 20132014, home_goals: 1, away_goals: 1)
-    game5 = stub(season: 20132014, home_goals: 1, away_goals: 2)
-    game6 = stub(season: 20142015, home_goals: 0, away_goals: 3)
+    game1 = mock(season: 20122013, home_goals: 3, away_goals: 2)
+    game2 = mock(season: 20122013, home_goals: 2, away_goals: 1)
+    game3 = mock(season: 20122013, home_goals: 4, away_goals: 0)
+    game4 = mock(season: 20132014, home_goals: 1, away_goals: 1)
+    game5 = mock(season: 20132014, home_goals: 1, away_goals: 2)
+    game6 = mock(season: 20142015, home_goals: 0, away_goals: 3)
     games1 = [game1, game2, game3, game4, game5, game6]
     games2 = [game1, game2]
     games3 = [game1, game5, game6]
@@ -172,14 +172,14 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_average_goals_by_season
-    game1 = stub(season: 20122013, home_goals: 3, away_goals: 2)
-    game2 = stub(season: 20122013, home_goals: 2, away_goals: 1)
-    game3 = stub(season: 20122013, home_goals: 4, away_goals: 0)
-    game4 = stub(season: 20132014, home_goals: 1, away_goals: 1)
-    game5 = stub(season: 20132014, home_goals: 1, away_goals: 2)
-    game6 = stub(season: 20142015, home_goals: 0, away_goals: 1)
-    game7 = stub(season: 20142015, home_goals: 0, away_goals: 1)
-    game8 = stub(season: 20142015, home_goals: 0, away_goals: 0)
+    game1 = mock(season: 20122013, home_goals: 3, away_goals: 2)
+    game2 = mock(season: 20122013, home_goals: 2, away_goals: 1)
+    game3 = mock(season: 20122013, home_goals: 4, away_goals: 0)
+    game4 = mock(season: 20132014, home_goals: 1, away_goals: 1)
+    game5 = mock(season: 20132014, home_goals: 1, away_goals: 2)
+    game6 = mock(season: 20142015, home_goals: 0, away_goals: 1)
+    game7 = mock(season: 20142015, home_goals: 0, away_goals: 1)
+    game8 = mock(season: 20142015, home_goals: 0, away_goals: 0)
     games1 = [game1, game2, game3, game4, game5, game6, game7, game8]
     games2 = [game1, game4]
 
@@ -204,12 +204,12 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_all_seasons
-    game1 = stub(season: 20122013, home_goals: 3, away_goals: 2)
-    game2 = stub(season: 20122013, home_goals: 2, away_goals: 1)
-    game3 = stub(season: 20122013, home_goals: 4, away_goals: 0)
-    game4 = stub(season: 20132014, home_goals: 1, away_goals: 1)
-    game5 = stub(season: 20132014, home_goals: 1, away_goals: 2)
-    game6 = stub(season: 20142015, home_goals: 0, away_goals: 3)
+    game1 = mock(season: 20122013, home_goals: 3, away_goals: 2)
+    game2 = mock(season: 20122013, home_goals: 2, away_goals: 1)
+    game3 = mock(season: 20122013, home_goals: 4, away_goals: 0)
+    game4 = mock(season: 20132014, home_goals: 1, away_goals: 1)
+    game5 = mock(season: 20132014, home_goals: 1, away_goals: 2)
+    game6 = mock(season: 20142015, home_goals: 0, away_goals: 3)
 
     games = [game1, game2, game3, game4, game5, game6]
 
@@ -220,8 +220,8 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_games_goal_totals
-    game1 = stub(home_goals: 2, away_goals: 3)
-    game2 = stub(home_goals: 0, away_goals: 3)
+    game1 = mock(home_goals: 2, away_goals: 3)
+    game2 = mock(home_goals: 0, away_goals: 3)
 
     @stat_tracker.stubs(:games).returns([game1, game2])
 
@@ -230,16 +230,16 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_total_goals
-    game = stub(home_goals: 2, away_goals: 3)
+    game = mock(home_goals: 2, away_goals: 3)
 
     assert_equal 5, @stat_tracker.total_goals(game)
   end
 
   def test_select_by_key_value
-    game_team1 = stub(hoa: 'home', result: 'WIN')
-    game_team2 = stub(hoa: 'home', result: 'LOSS')
-    game_team3 = stub(hoa: 'away', result: 'WIN')
-    game_team4 = stub(hoa: 'away', result: 'LOSS')
+    game_team1 = mock(hoa: 'home', result: 'WIN')
+    game_team2 = mock(hoa: 'home', result: 'LOSS')
+    game_team3 = mock(hoa: 'away', result: 'WIN')
+    game_team4 = mock(hoa: 'away', result: 'LOSS')
     game_teams = [game_team1, game_team2, game_team3, game_team4]
 
     assert_equal [game_team1, game_team2], @stat_tracker.select_by_key_value(game_teams, :hoa, "home")
