@@ -1,3 +1,4 @@
+require 'pry';
 module TeamStatistics
 
   def create_team_hash(team)
@@ -76,69 +77,21 @@ module TeamStatistics
     end.goals
   end
 
-  def get_all_team_games(team_id)
-    games.find_all do |game|
-      game.home_team_id == team_id.to_i || game.away_team_id == team_id.to_i
-    end
-  end
-
-  def get_games_by_id(team_id)
-    get_all_team_games(team_id).map do |game|
-      game.game_id
-    end
-  end
-
-  def gets_game_opponents(team_id)
-    game_teams.find_all do |game_team|
-      get_games_by_id(team_id).include?(game_team.game_id) && game_team.team_id != team_id.to_i
-    end
-  end
-
-  def games_by_wins(team_id)
-    gets_game_opponents(team_id).group_by do |opponent|
-      opponent.team_id
-    end
-  end
-
-  def win_percent_per_team(team_id)
-    result = Hash.new(0)
-    games_by_wins(team_id).each do |t_id, games|
-      games_won = games.find_all do |game|
-        game.result == "WIN"
-      end
-      result[t_id] = (games_won.length.to_f / games.length).round(2)
-    end
-    result
-  end
-
   def favorite_opponent(team_id)
-    highest_win_percent = win_percent_per_team(team_id).min_by do |t_id, win_percent|
-        win_percent
-    end
-    find_team(highest_win_percent[0].to_s).teamname
+    rival_id = opponent_win_count(team_id).sort_by { |k, v| v[:average] }.first[0]
+    rival_team = find_team(rival_id.to_s)
+    rival_team.teamname
   end
-
-  # def rival(team_id)
-  #   lowest_win_percentage = win_percent_per_team(team_id).max_by do |t_id, win_percent|
-  #       win_percent
-  #   end
-  #   find_team(lowest_win_percentage[0].to_s).teamname
-  # end
 
   def rival(team_id)
-    # sort the hash to find rival
-    rival_id = opponent_win_count(team_id).sort_by {|k, v| v}.last[0]
-    # find the team by rival id
+    rival_id = opponent_win_count(team_id).sort_by {|k, v| v[:average]}.last[0]
     rival_team = find_team(rival_id.to_s)
     rival_team.teamname
   end
 
   def opponent_win_count(team_id)
-    # loop through games with reduce to a build a hash
-    # keys are opponent team ids
-    # values are the count of wins/losses
     team_id = team_id.to_i
-    initial_value = Hash.new { |h,k| h[k] = 0}
+    initial_value = Hash.new { |h,k| h[k] = {wins: 0, total: 0, average: 0}}
     games.reduce(initial_value) do |opponent_win_count, game|
       if this_game_matters?(game, team_id)
         opponent_id = get_opponent_id(game, team_id)
@@ -150,10 +103,10 @@ module TeamStatistics
 
   def change_opponent_count(game, opponent_id, opponent_win_count)
     if opponent_won?(game, opponent_id)
-      opponent_win_count[opponent_id] += 1
-    else
-      opponent_win_count[opponent_id] -= 1
+      opponent_win_count[opponent_id][:wins] += 1
     end
+    opponent_win_count[opponent_id][:total] += 1
+    opponent_win_count[opponent_id][:average] = (opponent_win_count[opponent_id][:wins].to_f / opponent_win_count[opponent_id][:total]).round(2)
   end
 
   def get_opponent_id(game, team_id)
