@@ -28,11 +28,13 @@ This project is currently in development.
   - Work in a group
   - Collaborate with partners via Pull Requests
 
-## Screen Shots
+## Design Description
 
-[ PRETEND SCREEN SHOT IS HERE ]
+As a team we reviewed the rubric and project requirements as a team. We followed the initial iteration pattern, given in the project. The statistics methods were split equally among the group members. We set GitHub pull request guidelines, code syntax, and working times during our initial Define the Relationship. We also utilized GitHub Projects to track open, in progress, and closed issues.
 
-[ PRETEND OTHER SCREEN SHOT IS HERE ]
+Additionally, we attempted to use Hound, an automated linter for code review, but found the suggestions intrusive, and we ended up abandoning the use a few days into the project.
+
+We used Modules for our Games, Teams, and Game Teams statistics, and were wanting to implement additional features such as inheritance and the website, but ran out of time.
 
 ## Installation and Setup
 
@@ -55,6 +57,7 @@ rake
 ## Technologies Used
 
 Ruby
+GitHub
 
 ## Reflection
 
@@ -68,15 +71,21 @@ A well tested and efficient soccer statistics analysis application.
 
 __Why was this project challenging and therefore a really good learning experience?__
 
-The challenges I ran into were |########|. Because of these challenges I learned |#######|.
+The challenges we ran into were:
+
+1. Initial planning and design of project
+2. Working with CSV files for the first time
+3. Mocks and Stubs
+
+Because of these challenges we learned the different ways of setting up and structuring a project using classes and modules. We learned that using GitHub Projects can help structure the project flow, and organize outstanding issues. We also learned how to read external data sources such as CSV's. And lastly, we learned to implement, at least partially, some mocks and stubs into testing.
 
 __What were some unexpected obstacles?__
 
-Some unexpected obstacles were |########|. This obstacle caused |#######|.
+Mocks and stubs presented some error messages, such as unexpected invocation, that we were unable to resolve within the project's timeline. This is something we are continuing to look into for solutions.
 
-__What tools did you use to implement this project? Why did you decide to use these tools?__
+__What tools did you use to implement this project?__
 
-The technologies implemented in this project were |#########|. We chose to use |######| because |#####|.
+Ruby, GitHub, GitHub Projects, Atom, Slack, Zoom, caffeine
 
 ## Contributors
 
