@@ -1,6 +1,6 @@
-require 'csv'
+require'./stat'
 
-class GameTeam
+class GameTeam < Stat
   attr_reader :game_id,
               :team_id,
               :hoa,
@@ -33,14 +33,5 @@ class GameTeam
     @face_off_win_percentage = game_team_data[:faceoffwinpercentage].to_f
     @giveaways = game_team_data[:giveaways].to_i
     @takeaways = game_team_data[:takeaways].to_i
-  end
-
-  def self.create_game_teams(path)
-    return [] if !File.exist?(path)
-    game_teams = []
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |game_team_data|
-      game_teams << new(game_team_data)
-    end
-    game_teams
   end
 end
