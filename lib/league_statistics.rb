@@ -44,7 +44,6 @@ module LeagueStatistics
       team.team_id == worst_offense.first.to_s
     end.teamname
   end
- # ----------------------------
 
   def away_games_by_team_id(team_id)
     away_games = game_teams.find_all do |game_team|
@@ -125,5 +124,4 @@ module LeagueStatistics
       team.team_id == lowest_scoring.first.to_s
     end.teamname
   end
-
 end

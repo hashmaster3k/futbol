@@ -1,6 +1,7 @@
 require './test/test_helper'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require './lib/stat_tracker'
 
 class LeagueStatisticsTest < Minitest::Test
@@ -19,10 +20,6 @@ class LeagueStatisticsTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  # def test_highest_total_score
-  #   assert_equal 8, @stat_tracker.highest_total_score
-  # end
-
   def test_it_can_return_count_of_teams
     assert_equal 32, @stat_tracker.count_of_teams
   end
@@ -31,9 +28,29 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal 32, @stat_tracker.unique_teams.count
   end
 
-  def test_it_can_return_games_by_team_id
-    assert_equal 5, @stat_tracker.games_by_team_id(19).count
+  def test_it_can_return_games_by_team_id_mock
+    locations = {
+      games: "no path",
+      teams: "no path",
+      game_teams: "no path"
+    }
+
+    game_1 = mock('game_1')
+    game_2 = mock('game_2')
+    game_3 = mock('game_3')
+    game_1.stubs(:team_id).returns(19)
+    game_2.stubs(:team_id).returns(19)
+    game_3.stubs(:team_id).returns(19)
+
+    stat_tracker = StatTracker.from_csv(locations)
+
+    stat_tracker.stubs(:game_teams).returns([game_1, game_2, game_3])
+    assert_equal 3, stat_tracker.games_by_team_id(19).count
   end
+
+  # def test_it_can_return_games_by_team_id
+  #   assert_equal 5, @stat_tracker.games_by_team_id(19).count
+  # end
 
   def test_it_can_return_count_of_goals_by_team_id
     assert_equal 9, @stat_tracker.count_of_goals_by_team_id(19)
@@ -50,8 +67,6 @@ class LeagueStatisticsTest < Minitest::Test
   def test_it_can_return_worst_offense
     assert_equal "Houston Dynamo", @stat_tracker.worst_offense
   end
-
-  # ---------------
 
   def test_it_can_return_away_games_by_team_id
     assert_equal 4, @stat_tracker.away_games_by_team_id(19).count
@@ -92,5 +107,4 @@ class LeagueStatisticsTest < Minitest::Test
   def test_it_can_return_lowest_scoring_home_team
     assert_equal "Houston Dynamo", @stat_tracker.lowest_scoring_home_team
   end
-
 end
