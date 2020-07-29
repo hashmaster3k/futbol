@@ -125,7 +125,7 @@ module TeamStatistics
     game.away_team_id == opponent_id
   end
 
-  def opponent_won? (game, opponent_id)
+  def opponent_won?(game, opponent_id)
     if opponent_away?(game, opponent_id)
       game.away_goals > game.home_goals
     else
