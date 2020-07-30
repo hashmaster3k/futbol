@@ -1,0 +1,50 @@
+<h1>Futbol!</h1>
+<section>
+  <h2>Game Statistics</h2>
+  <ul>
+    <li>Highest Total Score: <%= highest_total_score %></li>
+    <li>Lowest Total Score: <%= lowest_total_score %></li>
+    <li>Percentage of Home Game Wins: <%= percentage_home_wins %></li>
+    <li>Percentage of Visitor Game Wins: <%= percentage_visitor_wins %></li>
+    <li>Percentage of Ties: <%= percentage_ties %></li>
+    <li>Average Goals Per Game: <%= average_goals_per_game %></li>
+    <li>Count of Games By Season: <%= count_of_games_by_season %></li>
+    <li>Average Goals By Season: <%= average_goals_by_season %></li>
+  </ul>
+</section>
+<section>
+  <h2>League Statistics</h2>
+  <ul>
+    <li>Count of Teams: <%= count_of_teams %></li>
+    <li>Best Offensive Team: <%= best_offense %></li>
+    <li>Worst Offensive Team: <%= worst_offense %></li>
+    <li>Highest Scoring Visitor Team: <%= highest_scoring_visitor %></li>
+    <li>Highest Scoring Home Team: <%= highest_scoring_home_team %></li>
+    <li>Lowest Scoring Visitor Team: <%= lowest_scoring_visitor %></li>
+    <li>Lowest Scoring Home Team: <%= lowest_scoring_home_team %></li>
+  </ul>
+<section>
+<section>
+  <h2>2017-2018 Season Statistics</h2>
+  <ul>
+    <li>Coach with Best Win Percentage: <%= winningest_coach("20172018") %></li>
+    <li>Coach with Worst Win Percentage: <%= worst_coach("20172018") %></li>
+    <li>Most Accurate Team: <%= most_accurate_team("20172018") %></li>
+    <li>Least Accurate Team: <%= least_accurate_team("20172018") %></li>
+    <li>Team with Most Tackles: <%= most_tackles("20172018") %></li>
+    <li>Team with Fewest Tackles: <%= fewest_tackles("20172018") %></li>
+  </ul>
+<section>
+<section>
+  <h2>Reign FC Team Statistics</h2>
+  <ul>
+    <li>Team Info: <%= team_info('54') %></li>
+    <li>Best Season: <%= best_season('54') %></li>
+    <li>Worst Season: <%= worst_season('54') %></li>
+    <li>Average Win Percentage: <%= average_win_percentage('54') %></li>
+    <li>Most Goals Scored in Single Game: <%= most_goals_scored('54') %></li>
+    <li>Fewest Goals Scored in Single Game: <%= fewest_goals_scored('54') %></li>
+    <li>Favorite Opponent: <%= favorite_opponent('54') %></li>
+    <li>Rival: <%= rival('54') %></li>
+  </ul>
+<section>
