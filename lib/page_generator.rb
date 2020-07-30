@@ -28,4 +28,4 @@ locations = {
 
 stat_tracker = StatTracker.from_csv(locations)
 
-File.write('./site/index.html', PageGenerator.new(stat_tracker).render)
+File.write('./site/index.html', stat_tracker.build.render)
