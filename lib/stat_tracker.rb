@@ -25,4 +25,12 @@ class StatTracker
 
     new(game_teams, games, teams)
   end
+
+  def get_binding
+    binding
+  end
+
+  def build
+    PageGenerator.new(self)
+  end
 end
